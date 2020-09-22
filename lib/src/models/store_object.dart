@@ -1,3 +1,3 @@
 abstract class StoreObject{
-  Map<String, dynamic> toJson();
+  int index;
 }

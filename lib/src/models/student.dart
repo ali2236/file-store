@@ -1,6 +1,6 @@
-import 'package:file_store/src/models/store_object.dart';
+import 'package:file_store/src/models/json_store_object.dart';
 
-class Student implements StoreObject{
+class Student extends JsonStoreObject{
   final int id;
   final String firstName;
   final String lastName;

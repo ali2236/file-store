@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'package:file_store/src/models/student.dart';
+import 'package:file_store/src/persistance/json_file_store.dart';
 import 'package:file_store/src/presentation/card_student.dart';
-import 'package:file_store/src/services/service_student.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:shelf/shelf.dart';
 import 'page_html.dart';
 
 FutureOr<Response> indexPage(Request request) async {
-  var students = KiwiContainer().resolve<StudentService>().elements;
+  var studentStore = KiwiContainer().resolve<JsonFileStore<Student>>();
+  var students = studentStore.elements;
   return render(
     html: htmlPage(
       title: 'FileStore by Ali.gh',
@@ -52,3 +54,5 @@ FutureOr<Response> indexPage(Request request) async {
     ),
   );
 }
+
+

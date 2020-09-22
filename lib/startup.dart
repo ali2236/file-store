@@ -1,19 +1,25 @@
-import 'package:file_store/src/presentation/page_index.dart';
-import 'package:file_store/src/services/service_student.dart';
+import 'dart:io';
 import 'package:kiwi/kiwi.dart';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
 import 'package:path/path.dart';
 import 'src/models/student.dart';
+import 'package:file_store/src/persistance/file_store.dart';
+import 'package:file_store/src/presentation/page_index.dart';
+import 'package:shelf_router/shelf_router.dart';
+import 'src/persistance/json_file_store.dart';
 
 Future<void> config(Router app) async {
-
   var basePath = 'files';
   var container = KiwiContainer();
 
-  var studentService = StudentService(join(basePath, 'students.json'));
-  await studentService.init();
-  container.registerInstance<StudentService>(studentService);
+  var getFile = (String name) => File(join(basePath, '$name.json'));
+
+  var studentFile = JsonFileStore<Student>(
+      file: getFile('students'),
+      objectDecoder: (json) => Student.fromJson(json),
+  );
+  await studentFile.init();
+  container.registerInstance<JsonFileStore<Student>>(studentFile);
 
   ///
   /// Add routes
@@ -23,20 +29,19 @@ Future<void> config(Router app) async {
     return indexPage(req);
   });
 
-  app.post('/students', (Request req) async{
+  app.post('/students', (Request req) async {
     var body = await req.readAsString();
     var student = Student.fromUri(body);
-    await studentService.add(student);
+    await studentFile.addElement(student);
     return Response.found('/');
   });
 
-  app.get('/students/delete/<id>', (Request req, String id) async{
+  app.get('/students/delete/<index>', (Request req, String index) async {
     try {
-      var studentId = int.tryParse(id);
-      var index = studentService.elements.indexWhere((s) => s.id == studentId);
-      await studentService.removeAt(index);
+      var studentIndex = int.tryParse(index);
+      await studentFile.removeAt(studentIndex);
       return Response.found('/');
-    } catch (e){
+    } catch (e) {
       return Response.ok(e.toString());
     }
   });
