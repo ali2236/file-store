@@ -48,4 +48,11 @@ class FileStore<T extends StoreObject> {
     await _writeFile();
     return e;
   }
+
+  Future<void> replaceElementAt(int index,T element) async{
+    element.index = index;
+    _elements.removeAt(index);
+    _elements.insert(index, element);
+    await _writeFile();
+  }
 }
