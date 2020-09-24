@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'package:file_store/src/models/student.dart';
-import 'package:file_store/src/persistance/json_file_store.dart';
+import 'package:file_store/src/persistance/store_student.dart';
 import 'package:file_store/src/views/form_student.dart';
 import 'package:file_store/src/views/scaffold.dart';
-import 'package:kiwi/kiwi.dart';
 import 'package:shelf/shelf.dart';
 import 'card_student.dart';
 
 FutureOr<Response> indexPage(Request request) async {
-  var studentStore = KiwiContainer().resolve<JsonFileStore<Student>>();
   var students = studentStore.elements;
   return scaffold(
       body: '''

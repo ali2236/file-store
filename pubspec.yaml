@@ -10,7 +10,6 @@ dependencies:
   args: ^1.6.0
   shelf: ^0.7.5
   shelf_router: ^0.7.2
-  kiwi:
   path: ^1.7.0
 
 dev_dependencies:
