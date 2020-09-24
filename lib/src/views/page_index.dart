@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:file_store/src/persistance/store_student.dart';
+import 'package:file_store/src/models/student.dart';
+import 'package:file_store/src/persistance/stores.dart';
 import 'package:file_store/src/views/form_student.dart';
 import 'package:file_store/src/views/scaffold.dart';
 import 'package:shelf/shelf.dart';
 import 'card_student.dart';
 
 FutureOr<Response> indexPage(Request request) async {
-  var students = studentStore.elements;
+  var students = getStore<Student>().elements;
   return scaffold(
       body: '''
 <div class="row my-2">

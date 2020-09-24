@@ -1,5 +1,7 @@
 import 'package:file_store/src/models/json_store_object.dart';
 
+const students = 'students';
+
 class Student extends JsonStoreObject{
   final int id;
   final String firstName;

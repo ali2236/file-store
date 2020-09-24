@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_store/src/models/json_store_object.dart';
 import 'package:file_store/src/persistance/file_store.dart';
 
+
 class JsonFileStore<T extends JsonStoreObject> extends FileStore<T> {
   JsonFileStore({File file, T Function(Map<String, dynamic>) objectDecoder})
       : super(file: file, encode: _encode, decode: _decode<T>(objectDecoder));
