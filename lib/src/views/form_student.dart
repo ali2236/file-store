@@ -1,9 +1,9 @@
 import 'package:file_store/src/models/student.dart';
 
-String studentForm({Student student, String action = '/students', String method = 'post'}){
+String studentForm({Student student, String action = '/$students', String method = 'post', String title = 'New Student'}){
   return '''<div class="card p-2">
     <div class="card-title text-center">
-        <h3>New Student</h3>
+        <h3>$title</h3>
     </div>
     <div class="card-body">
         <form method="$method" action="$action">

@@ -9,7 +9,7 @@ FutureOr<Response> studentEditPage(Student student){
   return scaffold(
     body: '''
 <div class="row my-2">
-    <div class="col">${studentForm(student: student, action: '/students/${student.index}')}</div>
+    <div class="col">${studentForm(student: student, action: '/students/${student.index}', title: 'Edit Student')}</div>
 </div>
     ''',
   );

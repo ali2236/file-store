@@ -1,25 +1,25 @@
-import 'package:file_store/src/models/store_object.dart';
+import 'json_store_object.dart';
 
-class Book extends StoreObject {
-  final int id;
+const books = 'books';
+
+class Book extends JsonStoreObject {
   final String title;
   final String author;
 
-  Book(this.id, this.title, this.author);
+  Book(this.title, this.author);
 
   factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(json['id'], json['title'], json['author']);
+    return Book(json['title'], json['author']);
   }
 
-  factory Book.fromUri(String uri){
+  factory Book.fromUri(String uri) {
     var params = Uri.splitQueryString(uri);
-    return Book(int.tryParse(params['id']), params['title'], params['author']);
+    return Book(params['title'], params['author']);
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'title': title,
       'author': author,
     };

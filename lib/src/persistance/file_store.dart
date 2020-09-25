@@ -39,6 +39,7 @@ class FileStore<T extends StoreObject> {
   }
 
   Future<void> addElement(T element) async {
+    element.index = _elements.length;
     _elements.add(element);
     await _writeFile();
   }
