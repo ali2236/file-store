@@ -9,3 +9,5 @@ build/
 doc/api/
 /.idea/
 /files/
+/pubspec.lock
+/file_store.iml
