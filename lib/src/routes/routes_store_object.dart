@@ -62,7 +62,7 @@ void addStoreObjectRoutes<T extends StoreObject>(
       var objects = store.elements
           .where((element) => (element as Searchable).match(query))
           .toList();
-      return scaffold(body: objectListBuilder(objects));
+      return scaffold(body: '''<div class="my-2">${objectListBuilder(objects)}</div>''');
     } catch (e) {
       return Response.internalServerError(body: e.toString());
     }

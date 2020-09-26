@@ -1,5 +1,5 @@
 import 'package:file_store/src/models/student.dart';
-import 'package:file_store/src/views/element_search.dart';
+import 'package:file_store/src/views/element_search_bar.dart';
 import 'card_student.dart';
 
 String studentsCard(List<Student> studentList){

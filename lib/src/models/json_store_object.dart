@@ -5,9 +5,12 @@ abstract class JsonStoreObject extends StoreObject implements Searchable {
   Map<String, dynamic> toJson();
 
   @override
-  bool match(String query) => toJson()
+  bool match(String query) {
+    var q = query.toLowerCase();
+    return toJson()
       .values
-      .map((e) => e.toString())
-      .map((e) => query.contains(e))
+      .map((e) => e.toString().toLowerCase())
+      .map((e) => e.contains(q))
       .reduce((value, element) => value || element);
+  }
 }
