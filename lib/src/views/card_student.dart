@@ -8,8 +8,8 @@ String studentCard(Student student) {
     <p>First Name: ${student.firstName}</p>
     <p>Last Name: ${student.lastName}</p>
     <div>
-    <a class="btn btn-secondary" type="button" href="/$students/edit/${student.index}">Edit</a>
-    <a class="btn btn-danger" type="button" href="/$students/delete/${student.index}">Delete</a>
+    <a class="btn btn-secondary" type="button" href="/$students/edit/${student.storeId}">Edit</a>
+    <a class="btn btn-danger" type="button" href="/$students/delete/${student.storeId}">Delete</a>
     </div>
   </div>
   ''';

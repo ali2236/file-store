@@ -1,4 +1,5 @@
 import 'dart:io' as dio;
+import 'package:file_store/src/persistance/meta_store.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:file_store/src/models/student.dart';
@@ -33,8 +34,9 @@ void _launchBrowser(dio.HttpServer server) => dio.Process.runSync(
     runInShell: true);
 
 Future<void> _setupStores(Router app) async{
-  await setupJsonStore<Student>(_basePath, students, (j) => Student.fromJson(j));
-  await setupJsonStore<Book>(_basePath, books, (j) => Book.fromJson(j));
+  var metaStore = await setupMetaStore(_basePath);
+  await setupJsonStore<Student>(_basePath, students, metaStore, (j) => Student.fromJson(j));
+  await setupJsonStore<Book>(_basePath, books, metaStore, (j) => Book.fromJson(j));
 }
 
 Future<void> _addStoreAPIs(Router app) async{

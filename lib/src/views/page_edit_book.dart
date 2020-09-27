@@ -8,7 +8,7 @@ FutureOr<Response> bookEditPage(Book book){
   return scaffold(
     body: '''
 <div class="row my-2">
-    <div class="col">${bookForm(book: book, action: '/$books/${book.index}', title: 'Edit Book')}</div>
+    <div class="col">${bookForm(book: book, action: '/$books/${book.storeId}', title: 'Edit Book')}</div>
 </div>
     ''',
   );

@@ -23,19 +23,17 @@ void addStoreObjectRoutes<T extends StoreObject>(
   });
 
   // replace
-  app.post('/$name/<index>', (Request req, String index) async {
-    var objectIndex = int.tryParse(index);
+  app.post('/$name/<id>', (Request req, String id) async {
     var body = await req.readAsString();
     var object = uriParser(body);
-    await store.replaceElementAt(objectIndex, object);
+    await store.replaceElementAt(id, object);
     return Response.found('/');
   });
 
   // delete
-  app.get('/$name/delete/<index>', (Request req, String index) async {
+  app.get('/$name/delete/<id>', (Request req, String id) async {
     try {
-      var objectIndex = int.tryParse(index);
-      await store.removeAt(objectIndex);
+      await store.removeAt(id);
       return Response.found('/');
     } catch (e) {
       return Response.ok(e.toString());
@@ -43,10 +41,9 @@ void addStoreObjectRoutes<T extends StoreObject>(
   });
 
   // show edit page
-  app.get('/$name/edit/<index>', (Request req, String index) async {
+  app.get('/$name/edit/<id>', (Request req, String id) async {
     try {
-      var objectIndex = int.tryParse(index);
-      var object = store.elements[objectIndex];
+      var object = store.getElementById(id);
       return editPageBuilder(object);
     } catch (e) {
       return Response.ok(e.toString());

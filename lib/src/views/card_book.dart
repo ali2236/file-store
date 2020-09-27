@@ -6,8 +6,8 @@ String bookCard(Book book) {
     <h4 class="pb-2">${book.title}</h4>
     <p>${book.author}</p>
     <div>
-    <a class="btn btn-secondary" type="button" href="/$books/edit/${book.index}">Edit</a>
-    <a class="btn btn-danger" type="button" href="/$books/delete/${book.index}">Delete</a>
+    <a class="btn btn-secondary" type="button" href="/$books/edit/${book.storeId}">Edit</a>
+    <a class="btn btn-danger" type="button" href="/$books/delete/${book.storeId}">Delete</a>
     </div>
   </div>
   ''';

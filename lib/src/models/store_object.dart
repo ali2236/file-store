@@ -1,3 +1,3 @@
 abstract class StoreObject{
-  int index;
+  dynamic storeId;
 }
