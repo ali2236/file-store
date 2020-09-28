@@ -8,6 +8,7 @@ final _responsiveSizing = 'col-lg-4 col-sm-12';
 FutureOr<Response> indexPage(
     Request request, List<StoreObjectPresenter> presenters) async {
   return scaffold(
+    container: false,
     body: '''
     <div class="row my-2">
     ${presenters.map((e) => '<div class="$_responsiveSizing">${e.buildForm(FormType.create)}</div>').join('\n')}

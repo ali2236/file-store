@@ -38,7 +38,7 @@ abstract class FileStore<T extends StoreObject> extends Store<T> {
     var files = directory.listSync();
     var contents = <String, String>{};
     var skippedMeta = false;
-    for(int i=0;i<files.length;i++){
+    for(int i=files.length-1;i>=0;i--){
       var file = files[i];
       var fileName = path.basename(file.path);
       if(!skippedMeta && fileName == name){

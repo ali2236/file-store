@@ -1,10 +1,15 @@
 import 'package:shelf/shelf.dart';
 
-Response render(
-    {String html = '',
-    Map<String, Object> headers = const <String, Object>{}}) {
-  return Response.ok(html,
-      headers: {'content-type': 'text/html'}..addAll(headers));
+Response render({
+  String html = '',
+  int type = 200,
+  Map<String, Object> headers = const <String, Object>{},
+}) {
+  return Response(
+    type,
+    body: html,
+    headers: {'content-type': 'text/html'}..addAll(headers),
+  );
 }
 
 String htmlPage({

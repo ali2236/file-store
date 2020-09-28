@@ -13,7 +13,7 @@ class BookPresenter extends StoreObjectPresenter<Book> {
         <h3>${isEdit ? 'Edit ${modelName}' : 'Add a new ${modelName}'}</h3>
     </div>
     <div class="card-body">
-        <form method="post" action="${isEdit ? '/$baseUrl/edit/${model.storeId}' : '/$baseUrl'}">
+        <form method="post" action="${isEdit ? '/$baseUrl/${model.storeId}' : '/$baseUrl'}">
             <div class="form-group">
                 <label for="bk-tl"> ${modelName} Title</label>
                 <input id="bk-tl" class="form-control" name="title" type="text" placeholder="Title" value="${model?.title ?? ''}">

@@ -3,6 +3,7 @@ import 'package:file_store/src/models/basic/searchable.dart';
 import 'package:file_store/src/models/basic/store_object.dart';
 import 'package:file_store/src/persistance/store.dart';
 import 'package:file_store/src/views/pages/page_edit.dart';
+import 'package:file_store/src/views/pages/page_exception.dart';
 import 'package:file_store/src/views/pages/scaffold.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 import 'package:shelf/shelf.dart';
@@ -17,10 +18,15 @@ void addStoreObjectRoutes<T extends StoreObject>(
 ) {
   // add
   app.post('/$name', (Request req) async {
-    var body = await req.readAsString();
-    var object = (codec as JsonObjectCodec).deserializeFromMap(Uri.splitQueryString(body)) as T;
-    await store.addElement(object);
-    return Response.found('/');
+    try {
+      var body = await req.readAsString();
+      var object = (codec as JsonObjectCodec).deserializeFromMap(
+          Uri.splitQueryString(body)) as T;
+      await store.addElement(object);
+      return Response.found('/');
+    } catch (e){
+      return exceptionPage(req, e.toString());
+    }
   });
 
   // replace
@@ -42,9 +48,9 @@ void addStoreObjectRoutes<T extends StoreObject>(
   });
 
   // show edit page
-  app.get('/$name/edit/<id>', (Request req, String id) async {
+  app.get('/$name/edit/<id>', (Request req, String id) {
     try {
-      var object = await store.getElementById(id);
+      var object = store.getElementById(id);
       return editPage(object, presenter);
     } catch (e) {
       return Response.ok(e.toString());

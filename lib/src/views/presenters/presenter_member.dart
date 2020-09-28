@@ -13,7 +13,7 @@ class MemberPresenter extends StoreObjectPresenter<Member> {
         <h3>${isEdit ? 'Edit ${modelName}' : 'Add a new ${modelName}'}</h3>
     </div>
     <div class="card-body">
-        <form method="post" action="${isEdit ? '/$baseUrl/edit/${model.storeId}' : '/$baseUrl'}">
+        <form method="post" action="${isEdit ? '/$baseUrl/${model.storeId}' : '/$baseUrl'}">
             <div class="form-group">
                 <label for="std-fn">${modelName} First Name</label>
                 <input id="std-fn" class="form-control" name="firstName" type="text" placeholder="First Name" value="${model?.firstName ?? ''}">
@@ -37,8 +37,8 @@ class MemberPresenter extends StoreObjectPresenter<Member> {
     <p>First Name: ${model.firstName}</p>
     <p>Last Name: ${model.lastName}</p>
     <div>
-    <a class="btn btn-secondary" type="button" href="/$members/edit/${model.storeId}">Edit</a>
-    <a class="btn btn-danger" type="button" href="/$members/delete/${model.storeId}">Delete</a>
+    <a class="btn btn-secondary" type="button" href="/$baseUrl/edit/${model.storeId}">Edit</a>
+    <a class="btn btn-danger" type="button" href="/$baseUrl/delete/${model.storeId}">Delete</a>
     </div>
   </div>
   ''';
@@ -50,7 +50,7 @@ class MemberPresenter extends StoreObjectPresenter<Member> {
   <div class="card">
     <div class="card-title"><h3 class="m-4">All Members</h3></div>
     <div class="card-body">
-        ${searchBar('/search/$members')}
+        ${searchBar('/search/$baseUrl')}
         ${models.map(buildItem).join('\n')}
      </div>
 </div>
