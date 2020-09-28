@@ -1,6 +1,9 @@
 import 'dart:io' as dio;
 import 'package:file_store/src/models/borrow.dart';
 import 'package:file_store/src/views/lists/list_borrow.dart';
+import 'package:file_store/src/views/presenters/presenter_book.dart';
+import 'package:file_store/src/views/presenters/presenter_borrowing.dart';
+import 'package:file_store/src/views/presenters/presenter_member.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:file_store/src/models/member.dart';
@@ -46,7 +49,7 @@ Future<void> _addStoreAPIs(Router app) async {
     members,
     getStore<Member>(),
     MemberJsonCodec(),
-    null,
+    MemberPresenter(),
   );
 
   addStoreObjectRoutes<Book>(
@@ -54,7 +57,7 @@ Future<void> _addStoreAPIs(Router app) async {
     books,
     getStore<Book>(),
     BookJsonCodec(),
-    null,
+    BookPresenter(),
   );
 
   addStoreObjectRoutes<Borrow>(
@@ -62,6 +65,6 @@ Future<void> _addStoreAPIs(Router app) async {
     borrowings,
     getStore<Borrow>(),
     BorrowJsonCodec(),
-    null,
+    BorrowingPresenter(),
   );
 }

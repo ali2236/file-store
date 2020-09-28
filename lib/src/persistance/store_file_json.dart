@@ -14,16 +14,23 @@ class JsonFileStore<T extends JsonStoreObject> extends FileStore<T>{
   }
 
   @override
-  Future<Iterable<T>> getAllElements() async{
-    var allContents = await allFileContents();
-    return allContents.map((source) => codec.deserialize(source));
+  List<T> getAllElements(){
+    var allContents = allFileContents();
+    var elements = List<T>(allContents.length);
+    int i = 0;
+    allContents.forEach((id, source) {
+      var model = codec.deserialize(source);
+      model.storeId = id;
+      elements[i++] = model;
+    });
+    return elements;
   }
 
   @override
-  Future<T> getElementById(String storeId) async{
+  T getElementById(String storeId) {
     var file = getfile(storeId);
     if(file.existsSync()){
-      return codec.deserialize(await file.readAsString());
+      return codec.deserialize(file.readAsStringSync())..storeId = storeId;
     } else {
       return null;
     }

@@ -32,17 +32,22 @@ abstract class FileStore<T extends StoreObject> extends Store<T> {
     await file.writeAsString(contents);
   }
 
-  Future<Iterable<String>> allFileContents() async{
+  Map<String,String> allFileContents(){
     var directory = Directory(basePath);
     var files = directory.listSync();
+    var contents = <String, String>{};
+    var skippedMeta = false;
     for(int i=0;i<files.length;i++){
-      if(path.basename(files[i].path) == name){
-        files.removeAt(i);
-        break;
+      var file = files[i];
+      var fileName = path.basename(file.path);
+      if(!skippedMeta && fileName == name){
+        skippedMeta = true;
+      } else {
+        var f = File(file.path);
+        var content = f.readAsStringSync();
+        contents[fileName] = content;
       }
     }
-    var futureContents = files.map((e) => File(e.path).readAsString());
-    var contents = await Future.wait(futureContents);
     return contents;
   }
 }
