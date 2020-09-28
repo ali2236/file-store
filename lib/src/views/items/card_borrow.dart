@@ -8,8 +8,8 @@ String borrowCard(Borrow borrow) {
   var book = getStore<Book>().getElementById(borrow.bookId);
   return '''
   <div class="card card-body my-2">
-    <h4 class="pb-2">${book!=null? book.toString() : '*deleted book*'}</h4>
-    <p>${member!=null ? member.toString() : '*deleted member*'}</p>
+    <h4 class="pb-2">${book != null ? book.toString() : '*deleted book*'}</h4>
+    <p>${member != null ? member.toString() : '*deleted member*'}</p>
     <div>
     <a class="btn btn-secondary" type="button" href="/$borrowings/edit/${borrow.storeId}">Edit</a>
     <a class="btn btn-danger" type="button" href="/$borrowings/delete/${borrow.storeId}">Delete</a>

@@ -4,7 +4,7 @@ import 'package:file_store/src/views/pages/scaffold.dart';
 import 'package:shelf/shelf.dart';
 import '../forms/form_book.dart';
 
-FutureOr<Response> bookEditPage(Book book){
+FutureOr<Response> bookEditPage(Book book) {
   return scaffold(
     body: '''
 <div class="row my-2">

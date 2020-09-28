@@ -1,6 +1,10 @@
 import 'package:file_store/src/models/member.dart';
 
-String memberForm({Member member, String action = '/$members', String method = 'post', String title = 'New Member'}){
+String memberForm(
+    {Member member,
+    String action = '/$members',
+    String method = 'post',
+    String title = 'New Member'}) {
   return '''<div class="card p-2">
     <div class="card-title text-center">
         <h3>$title</h3>

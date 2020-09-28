@@ -15,9 +15,9 @@ import 'package:shelf/shelf.dart';
 final _responsiveSizing = 'col-lg-4 col-sm-12';
 
 FutureOr<Response> indexPage(Request request) async {
-  var students = getStore<Member>().elements;
-  var books = getStore<Book>().elements;
-  var borrows = getStore<Borrow>().elements;
+  var students = await getStore<Member>().getAllElements();
+  var books = await getStore<Book>().getAllElements();
+  var borrows = await getStore<Borrow>().getAllElements();
   return scaffold(
     body: '''
     <div class="row my-2">

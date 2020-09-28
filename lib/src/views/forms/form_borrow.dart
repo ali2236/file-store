@@ -3,9 +3,20 @@ import 'package:file_store/src/models/borrow.dart';
 import 'package:file_store/src/models/member.dart';
 import 'package:file_store/src/persistance/stores.dart';
 
-String borrowForm({Borrow borrow, String action = '/$borrowings', String method = 'post', String title = 'New Borrowing'}){
-  final membersOptions = getStore<Member>().elements.map((e) => ' <option value="${e.storeId}">$e</option>');
-  final booksOptions = getStore<Book>().elements.map((e) => ' <option value="${e.storeId}">$e</option>');
+Future<String> borrowForm({
+  Borrow borrow,
+  String action = '/$borrowings',
+  String method = 'post',
+  String title = 'New Borrowing',
+}) async {
+  var members = await getStore<Member>().getAllElements();
+  var books = await getStore<Book>().getAllElements();
+
+  var option = (e) => ' <option value="${e.storeId}">$e</option>';
+
+  final membersOptions = members.map(option);
+  final booksOptions = books.map(option);
+
   return '''<div class="card p-2">
     <div class="card-title text-center">
         <h3>$title</h3>
@@ -14,7 +25,7 @@ String borrowForm({Borrow borrow, String action = '/$borrowings', String method 
         <form method="$method" action="$action">
             <div class="form-group">
                 <label for="member-select">Member</label>
-                 <select class="form-control" id="member-select" name="memberId" >
+                 <select class="form-control" id="member-select" name="memberId">
                      ${membersOptions.join('\n')}
                  </select>
             </div>

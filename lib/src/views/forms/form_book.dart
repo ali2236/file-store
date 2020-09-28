@@ -1,6 +1,10 @@
 import 'package:file_store/src/models/book.dart';
 
-String bookForm({Book book, String action = '/$books', String method = 'post', String title = 'New Book'}){
+String bookForm(
+    {Book book,
+    String action = '/$books',
+    String method = 'post',
+    String title = 'New Book'}) {
   return '''<div class="card p-2">
     <div class="card-title text-center">
         <h3>$title</h3>

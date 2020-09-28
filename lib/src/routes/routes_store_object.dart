@@ -1,23 +1,24 @@
-import 'dart:async';
-import 'package:file_store/src/models/searchable.dart';
-import 'package:file_store/src/models/store_object.dart';
-import 'package:file_store/src/persistance/file_store.dart';
-import 'file:///C:/Users/Aligator/projects/file_store/lib/src/views/pages/scaffold.dart';
+import 'package:file_store/src/models/basic/codec.dart';
+import 'package:file_store/src/models/basic/searchable.dart';
+import 'package:file_store/src/models/basic/store_object.dart';
+import 'package:file_store/src/persistance/store.dart';
+import 'package:file_store/src/views/pages/page_edit.dart';
+import 'package:file_store/src/views/pages/scaffold.dart';
+import 'package:file_store/src/views/presenters/presenter.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 void addStoreObjectRoutes<T extends StoreObject>(
   Router app,
   String name,
-  FileStore<T> store,
-  T Function(String uri) uriParser,
-  FutureOr<Response> Function(T object) editPageBuilder,
-  String Function(List<T> object) objectListBuilder,
+  Store<T> store,
+  ObjectCodec<T> codec,
+  StoreObjectPresenter presenter,
 ) {
   // add
   app.post('/$name', (Request req) async {
     var body = await req.readAsString();
-    var object = uriParser(body);
+    var object = codec.deserialize(Uri.decodeQueryComponent(body));
     await store.addElement(object);
     return Response.found('/');
   });
@@ -25,7 +26,7 @@ void addStoreObjectRoutes<T extends StoreObject>(
   // replace
   app.post('/$name/<id>', (Request req, String id) async {
     var body = await req.readAsString();
-    var object = uriParser(body);
+    var object = codec.deserialize(Uri.decodeQueryComponent(body));
     await store.replaceElementAt(id, object);
     return Response.found('/');
   });
@@ -33,7 +34,7 @@ void addStoreObjectRoutes<T extends StoreObject>(
   // delete
   app.get('/$name/delete/<id>', (Request req, String id) async {
     try {
-      await store.removeAt(id);
+      await store.removeElementById(id);
       return Response.found('/');
     } catch (e) {
       return Response.ok(e.toString());
@@ -43,8 +44,8 @@ void addStoreObjectRoutes<T extends StoreObject>(
   // show edit page
   app.get('/$name/edit/<id>', (Request req, String id) async {
     try {
-      var object = store.getElementById(id);
-      return editPageBuilder(object);
+      var object = await store.getElementById(id);
+      return editPage(object, presenter);
     } catch (e) {
       return Response.ok(e.toString());
     }
@@ -56,10 +57,11 @@ void addStoreObjectRoutes<T extends StoreObject>(
       var body = await req.readAsString();
       var params = Uri.splitQueryString(body);
       var query = params['search'];
-      var objects = store.elements
+      var objects = (await store.getAllElements())
           .where((element) => (element as Searchable).match(query))
           .toList();
-      return scaffold(body: '''<div class="my-2">${objectListBuilder(objects)}</div>''');
+      return scaffold(
+          body: '''<div class="my-2">${presenter.buildList(objects)}</div>''');
     } catch (e) {
       return Response.internalServerError(body: e.toString());
     }

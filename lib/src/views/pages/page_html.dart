@@ -1,8 +1,8 @@
-
 import 'package:shelf/shelf.dart';
 
-Response render({String html = '',
-  Map<String, Object> headers = const <String, Object>{}}) {
+Response render(
+    {String html = '',
+    Map<String, Object> headers = const <String, Object>{}}) {
   return Response.ok(html,
       headers: {'content-type': 'text/html'}..addAll(headers));
 }

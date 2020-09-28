@@ -14,10 +14,9 @@ import 'src/views/pages/page_edit_borrow.dart';
 import 'src/views/pages/page_edit_member.dart';
 import 'src/views/pages/page_index.dart';
 
-const _basePath = 'files';
+const _basePath = 'fileStore';
 
 void main(List<String> args) async {
-
   // setup routing
   final app = Router();
   app.get('/', indexPage);
@@ -35,20 +34,34 @@ void _launchBrowser(dio.HttpServer server) => dio.Process.runSync(
     'start http://${server.address.host}:${server.port}', [],
     runInShell: true);
 
-Future<void> _setupStores(Router app) async{
-  var metaStore = await setupMetaStore(_basePath);
-  await setupJsonStore<Member>(_basePath, members, metaStore, (j) => Member.fromJson(j));
-  await setupJsonStore<Book>(_basePath, books, metaStore, (j) => Book.fromJson(j));
-  await setupJsonStore<Borrow>(_basePath, borrowings, metaStore, (j) => Borrow.fromJson(j));
+Future<void> _setupStores(Router app) async {
+  setupJsonStore<Member>(_basePath, members, MemberJsonCodec());
+  setupJsonStore<Book>(_basePath, books, BookJsonCodec());
+  setupJsonStore<Borrow>(_basePath, borrowings, BorrowJsonCodec());
 }
 
-Future<void> _addStoreAPIs(Router app) async{
-  addStoreObjectRoutes<Member>(app, members, getStore<Member>(),
-          (uri) => Member.fromUri(uri), memberEditPage, memberListCard);
+Future<void> _addStoreAPIs(Router app) async {
+  addStoreObjectRoutes<Member>(
+    app,
+    members,
+    getStore<Member>(),
+    MemberJsonCodec(),
+    null,
+  );
 
-  addStoreObjectRoutes<Book>(app, books, getStore<Book>(),
-          (uri) => Book.fromUri(uri), bookEditPage, bookListCard);
+  addStoreObjectRoutes<Book>(
+    app,
+    books,
+    getStore<Book>(),
+    BookJsonCodec(),
+    null,
+  );
 
-  addStoreObjectRoutes<Borrow>(app, borrowings, getStore<Borrow>(),
-          (uri) => Borrow.fromUri(uri), borrowEditPage, borrowListCard);
+  addStoreObjectRoutes<Borrow>(
+    app,
+    borrowings,
+    getStore<Borrow>(),
+    BorrowJsonCodec(),
+    null,
+  );
 }
