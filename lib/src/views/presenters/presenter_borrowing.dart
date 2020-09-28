@@ -53,7 +53,7 @@ class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
     <h4 class="pb-2">${book != null ? book.toString() : '*deleted book*'}</h4>
     <p>${member != null ? member.toString() : '*deleted member*'}</p>
     <div>
-    <a class="btn btn-secondary" type="button" href="/$borrowings/edit/${model.storeId}">Edit</a>
+    <!--<a class="btn btn-secondary" type="button" href="/$borrowings/edit/${model.storeId}">Edit</a>-->
     <a class="btn btn-danger" type="button" href="/$borrowings/delete/${model.storeId}">Delete</a>
     </div>
   </div>
