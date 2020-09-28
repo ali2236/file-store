@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:file_store/src/models/book.dart';
-import 'package:file_store/src/views/scaffold.dart';
+import 'package:file_store/src/views/pages/scaffold.dart';
 import 'package:shelf/shelf.dart';
-import 'form_book.dart';
+import '../forms/form_book.dart';
 
 FutureOr<Response> bookEditPage(Book book){
   return scaffold(

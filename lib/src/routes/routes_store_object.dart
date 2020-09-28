@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:file_store/src/models/searchable.dart';
 import 'package:file_store/src/models/store_object.dart';
 import 'package:file_store/src/persistance/file_store.dart';
-import 'package:file_store/src/views/scaffold.dart';
+import 'file:///C:/Users/Aligator/projects/file_store/lib/src/views/pages/scaffold.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 

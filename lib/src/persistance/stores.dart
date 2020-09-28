@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:file_store/src/models/json_store_object.dart';
-import 'package:file_store/src/models/store_meta.dart';
 import 'package:file_store/src/models/store_object.dart';
 import 'package:file_store/src/persistance/meta_store.dart';
 import 'package:path/path.dart';

@@ -1,16 +1,18 @@
 import 'dart:io' as dio;
-import 'package:file_store/src/persistance/meta_store.dart';
+import 'package:file_store/src/models/borrow.dart';
+import 'package:file_store/src/views/lists/list_borrow.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
-import 'package:file_store/src/models/student.dart';
+import 'package:file_store/src/models/member.dart';
 import 'package:file_store/src/models/book.dart';
 import 'package:file_store/src/persistance/stores.dart';
 import 'package:file_store/src/routes/routes_store_object.dart';
-import 'package:file_store/src/views/card_books.dart';
-import 'package:file_store/src/views/card_students.dart';
-import 'package:file_store/src/views/page_edit_book.dart';
-import 'package:file_store/src/views/page_edit_student.dart';
-import 'src/views/page_index.dart';
+import 'src/views/lists/list_book.dart';
+import 'src/views/lists/list_memeber.dart';
+import 'src/views/pages/page_edit_book.dart';
+import 'src/views/pages/page_edit_borrow.dart';
+import 'src/views/pages/page_edit_member.dart';
+import 'src/views/pages/page_index.dart';
 
 const _basePath = 'files';
 
@@ -35,14 +37,18 @@ void _launchBrowser(dio.HttpServer server) => dio.Process.runSync(
 
 Future<void> _setupStores(Router app) async{
   var metaStore = await setupMetaStore(_basePath);
-  await setupJsonStore<Student>(_basePath, students, metaStore, (j) => Student.fromJson(j));
+  await setupJsonStore<Member>(_basePath, members, metaStore, (j) => Member.fromJson(j));
   await setupJsonStore<Book>(_basePath, books, metaStore, (j) => Book.fromJson(j));
+  await setupJsonStore<Borrow>(_basePath, borrowings, metaStore, (j) => Borrow.fromJson(j));
 }
 
 Future<void> _addStoreAPIs(Router app) async{
-  addStoreObjectRoutes<Student>(app, students, getStore<Student>(),
-          (uri) => Student.fromUri(uri), studentEditPage, studentsCard);
+  addStoreObjectRoutes<Member>(app, members, getStore<Member>(),
+          (uri) => Member.fromUri(uri), memberEditPage, memberListCard);
 
   addStoreObjectRoutes<Book>(app, books, getStore<Book>(),
-          (uri) => Book.fromUri(uri), bookEditPage, booksCard);
+          (uri) => Book.fromUri(uri), bookEditPage, bookListCard);
+
+  addStoreObjectRoutes<Borrow>(app, borrowings, getStore<Borrow>(),
+          (uri) => Borrow.fromUri(uri), borrowEditPage, borrowListCard);
 }
