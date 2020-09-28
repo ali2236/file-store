@@ -18,7 +18,7 @@ void addStoreObjectRoutes<T extends StoreObject>(
   // add
   app.post('/$name', (Request req) async {
     var body = await req.readAsString();
-    var object = codec.deserialize(Uri.decodeQueryComponent(body));
+    var object = (codec as JsonObjectCodec).deserializeFromMap(Uri.splitQueryString(body)) as T;
     await store.addElement(object);
     return Response.found('/');
   });
@@ -26,7 +26,7 @@ void addStoreObjectRoutes<T extends StoreObject>(
   // replace
   app.post('/$name/<id>', (Request req, String id) async {
     var body = await req.readAsString();
-    var object = codec.deserialize(Uri.decodeQueryComponent(body));
+    var object = (codec as JsonObjectCodec).deserializeFromMap(Uri.splitQueryString(body)) as T;
     await store.replaceElementAt(id, object);
     return Response.found('/');
   });

@@ -25,10 +25,6 @@ void main(List<String> args) async {
   _launchBrowser(server);
 }
 
-void _launchBrowser(dio.HttpServer server) => dio.Process.runSync(
-    'start http://${server.address.host}:${server.port}', [],
-    runInShell: true);
-
 void setup(Router app) async {
   final memberCodec = MemberJsonCodec();
   final bookCodec = BookJsonCodec();
@@ -74,3 +70,9 @@ void setup(Router app) async {
     ]);
   });
 }
+
+void _launchBrowser(dio.HttpServer server) => dio.Process.runSync(
+      'start http://${server.address.host}:${server.port}',
+      [],
+      runInShell: true,
+    );

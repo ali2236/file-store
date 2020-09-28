@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:file_store/src/models/basic/codec.dart';
 import 'basic/store_object.dart';
 
@@ -18,9 +17,9 @@ class Borrow extends JsonStoreObject {
 }
 
 class BorrowJsonCodec extends JsonObjectCodec<Borrow>{
+
   @override
-  Borrow deserialize(String source) {
-    final json = jsonDecode(source);
+  Borrow deserializeFromMap(Map<String, dynamic> json) {
     return Borrow(json['memberId'], json['bookId']);
   }
 

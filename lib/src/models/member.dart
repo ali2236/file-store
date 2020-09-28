@@ -1,9 +1,4 @@
-
-
-import 'dart:convert';
-
 import 'package:file_store/src/models/basic/codec.dart';
-
 import 'basic/store_object.dart';
 
 const members = 'members';
@@ -29,8 +24,8 @@ class Member extends JsonStoreObject {
 
 class MemberJsonCodec extends JsonObjectCodec<Member>{
   @override
-  Member deserialize(String source) {
-    final json = jsonDecode(source);
+  Member deserializeFromMap(Map<String, dynamic> json) {
     return Member(json['firstName'], json['lastName']);
   }
+
 }

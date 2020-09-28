@@ -8,6 +8,11 @@ abstract class ObjectCodec<T extends StoreObject>{
 }
 
 abstract class JsonObjectCodec<T extends JsonStoreObject> extends ObjectCodec<T>{
+
+  T deserializeFromMap(Map<String, dynamic> map);
+
+  T deserialize(String source)=> deserializeFromMap(jsonDecode(source));
+
   @override
   String serialize(T object) => jsonEncode(object.toJson());
 }
