@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:shelf/shelf.dart';
-import 'page_html.dart';
+import 'template.dart';
 
 FutureOr<Response> scaffold({String body = ''}) async {
   return render(

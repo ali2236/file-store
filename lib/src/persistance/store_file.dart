@@ -34,6 +34,7 @@ abstract class FileStore<T extends StoreObject> extends Store<T> {
 
   Map<String,String> allFileContents(){
     var directory = Directory(basePath);
+    if(!directory.existsSync()) directory.createSync(recursive: true);
     var files = directory.listSync();
     var contents = <String, String>{};
     var skippedMeta = false;
