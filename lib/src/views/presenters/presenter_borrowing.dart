@@ -17,6 +17,7 @@ class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
 
     var option = (e) => ' <option value="${e.storeId}">$e</option>';
 
+    // when editing, put the selected model first
     if(model!=null){
       for(int i=0;i<members.length;i++){
         if(members[i].storeId == model.memberId){

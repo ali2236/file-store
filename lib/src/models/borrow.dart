@@ -23,7 +23,7 @@ class Borrow extends JsonStoreObject {
     };
 
   @override
-  bool match(String query) => book.match(query) || member.match(query);
+  bool match(String query) => (book?.match(query) ?? false) || (member?.match(query) ?? false);
 }
 
 class BorrowJsonCodec extends JsonObjectCodec<Borrow>{
