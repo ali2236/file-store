@@ -2,6 +2,7 @@ import 'package:file_store/src/models/book.dart';
 import 'package:file_store/src/models/borrow.dart';
 import 'package:file_store/src/models/member.dart';
 import 'package:file_store/src/persistance/stores.dart';
+import 'package:file_store/src/views/forms/element_search_bar.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 
 class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
@@ -15,6 +16,25 @@ class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
     var books = getStore<Book>().getAllElements();
 
     var option = (e) => ' <option value="${e.storeId}">$e</option>';
+
+    if(model!=null){
+      for(int i=0;i<members.length;i++){
+        if(members[i].storeId == model.memberId){
+          var temp = members[0];
+          members[0] = members[i];
+          members[i] = temp;
+          break;
+        }
+      }
+      for(int i=0;i<books.length;i++){
+        if(books[i].storeId == model.bookId){
+          var temp = books[0];
+          books[0] = books[i];
+          books[i] = temp;
+          break;
+        }
+      }
+    }
 
     final membersOptions = members.map(option);
     final booksOptions = books.map(option);
@@ -46,14 +66,14 @@ class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
 
   @override
   String buildItem(Borrow model) {
-    var member = getStore<Member>().getElementById(model.memberId);
-    var book = getStore<Book>().getElementById(model.bookId);
+    var member = model.member;
+    var book = model.book;
     return '''
   <div class="card card-body my-2">
     <h4 class="pb-2">${book != null ? book.toString() : '*deleted book*'}</h4>
     <p>${member != null ? member.toString() : '*deleted member*'}</p>
     <div>
-    <!--<a class="btn btn-secondary" type="button" href="/$borrowings/edit/${model.storeId}">Edit</a>-->
+    <a class="btn btn-secondary" type="button" href="/$borrowings/edit/${model.storeId}">Edit</a>
     <a class="btn btn-danger" type="button" href="/$borrowings/delete/${model.storeId}">Delete</a>
     </div>
   </div>
@@ -66,7 +86,7 @@ class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
   <div class="card">
     <div class="card-title"><h3 class="m-4">All Borrowings</h3></div>
     <div class="card-body">
-        ${/*searchBar('/search/$borrows')*/ ''}
+        ${searchBar('/search/$baseUrl')}
         ${models.map(buildItem).join('\n')}
      </div>
 </div>
