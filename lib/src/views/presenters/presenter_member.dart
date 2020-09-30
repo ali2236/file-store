@@ -1,5 +1,4 @@
 import 'package:file_store/src/models/member.dart';
-import 'package:file_store/src/views/forms/element_search_bar.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 
 class MemberPresenter extends StoreObjectPresenter<Member> {

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:file_store/src/views/pages/scaffold.dart';
+import 'package:file_store/src/views/pages/page.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 import 'package:shelf/shelf.dart';
 

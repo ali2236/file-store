@@ -4,7 +4,7 @@ import 'package:file_store/src/models/basic/store_object.dart';
 import 'package:file_store/src/persistance/store.dart';
 import 'package:file_store/src/views/pages/page_edit.dart';
 import 'package:file_store/src/views/pages/page_exception.dart';
-import 'package:file_store/src/views/pages/scaffold.dart';
+import 'package:file_store/src/views/pages/page.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';

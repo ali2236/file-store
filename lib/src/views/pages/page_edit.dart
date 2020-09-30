@@ -3,7 +3,7 @@ import 'package:file_store/src/models/basic/store_object.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 import 'package:shelf/shelf.dart';
 
-import 'scaffold.dart';
+import 'page.dart';
 
 FutureOr<Response> editPage<T extends StoreObject>(
     T model, StoreObjectPresenter<T> presenter) {

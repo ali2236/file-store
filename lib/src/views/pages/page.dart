@@ -1,5 +1,18 @@
+import 'dart:async';
 import 'package:shelf/shelf.dart';
 
+// a template for pages
+FutureOr<Response> scaffold({String body = '', bool container = true, int statusCode = 200}) async {
+  return render(
+    type: statusCode,
+    html: htmlPage(
+      title: 'FileStore by Ali.gh',
+      body: '''<div class="${container ? 'container' : ''}">$body</div>''',
+    ),
+  );
+}
+
+/// makes a html response
 Response render({
   String html = '',
   int type = 200,

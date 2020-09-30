@@ -2,7 +2,6 @@ import 'package:file_store/src/models/book.dart';
 import 'package:file_store/src/models/borrow.dart';
 import 'package:file_store/src/models/member.dart';
 import 'package:file_store/src/persistance/stores.dart';
-import 'package:file_store/src/views/forms/element_search_bar.dart';
 import 'package:file_store/src/views/presenters/presenter.dart';
 
 class BorrowingPresenter extends StoreObjectPresenter<Borrow> {
